@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Instructor id</th>
+                <th>Department</th>
+                <th>Instructor</th>
+                <th>Start Date</th>
+                <th>No of Days</th>
+            </tr>
+        </thead>
+        <tbody id="coursesBody"></tbody>
+    </table>
+    
+    <script>
+        const urlParams = new URLSearchParams(location.search);
+        const id = urlParams.get("courseid");
+        document.write(id);
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const response = await fetch("http://127.0.0.1:8081/api/courses/"+id);
+            const c = await response.json();
+            coursesBody.innerHTML = `
+                <tr>
+                    <td>${c.courseName}</td>
+                    <td>${c.id}</td>
+                    <td>${c.dept}</td>
+                    <td>${c.instructor}</td>
+                    <td>${c.startDate}</td>
+                    <td>${c.numDays}</td>
+                </tr> 
+            `;
+        });
+        
+    </script>
+</body>
+</html>
